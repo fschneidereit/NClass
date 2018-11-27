@@ -1,0 +1,28 @@
+# Binaries
+[Bb]in[aries]/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+
+# Visual Studio
+.vs/
+*.sln.ide/
+*.sln.docstates
+*.suo
+*.user
+
+# NuGet
+**/packages/*
+**/pkg/*
+!**/packages/build/
+!**/pkg/build/
+*.nupkg
+
+# Windows
+$RECYCLE.BIN/
+Desktop.ini
+ehthumbs.db
+Thumbs.db
+
+# macOS
+.DS_Store

@@ -1,0 +1,25 @@
+# Top-most configuration file
+root = true
+
+# Default style
+[*]
+charset = utf-8
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Markdown files
+[.{md,markdown,mdown}]
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+# XML-based files
+[*.{build,config,csproj,resx,xml}]
+indent_size = 2
+indent_style = space
+insert_final_newline = false
+
+# No new line for PDFExport
+[NClass/src/PDFExport/**.cs]
+insert_final_newline = false
