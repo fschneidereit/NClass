@@ -1,8 +1,10 @@
 # Binaries
-[Bb]in[aries]/
-[Oo]bj/
-[Dd]ebug/
-[Rr]elease/
+**/[Bb]in[aries]/
+**/[Oo]bj/
+**/[Dd]ebug/
+**/[Rr]elease/
+NClass/bin
+NClass/pub
 
 # Visual Studio
 .vs/

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Compile" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectName>NClass</ProjectName>
+    <ProjectVersion>2.04</ProjectVersion>
+    <BuildDir>$(MSBuildThisFileDirectory)bin\</BuildDir>
+    <BuildNumber>$([System.Math]::Abs($([System.Math]::Floor($([System.DateTime]::Now.Subtract($([System.DateTime]::Parse("06/09/2006"))).TotalDays)))))</BuildNumber>
+    <PublishDir>$(MSBuildThisFileDirectory)pub\</PublishDir>
+  </PropertyGroup>
+
+  <Target Name="Compile" DependsOnTargets="CleanBuildDir;CreateCommonAssemblyInfo">
+    <Copy SourceFiles="src\AssemblyImport\libs\NReflect.dll" DestinationFolder="$(BuildDir)Plugins"/>
+    <Copy SourceFiles="src\icons\diagram.ico" DestinationFolder="$(BuildDir)"/>
+    <MSBuild Projects="src\NClass.sln" Properties="BuildDir=$(BuildDir);Configuration=Release;ScriptCompile=true"/>
+    <CallTarget Targets="DeleteCommonAssemblyInfo"/>
+    <ZipDirectory SourceDirectory="$(BuildDir)" DestinationFile="$(PublishDir)$(ProjectName)_v$(ProjectVersion)_bin.zip"/>
+  </Target>
+
+  <Target Name="CleanBuildDir">
+    <RemoveDir Directories="$(BuildDir)" Condition="Exists('$(BuildDir)')"/>
+    <RemoveDir Directories="$(PublishDir)" Condition="Exists('$(PublishDir)')"/>
+    <MakeDir Directories="$(BuildDir)"/>
+    <MakeDir Directories="$(BuildDir)Plugins"/>
+    <MakeDir Directories="$(PublishDir)"/>
+  </Target>
+
+  <Target Name="CreateCommonAssemblyInfo">
+    <ItemGroup>
+      <AssemblyAttribute Include="[assembly:System.Runtime.InteropServices.ComVisibleAttribute(true)]"/>
+      <AssemblyAttribute Include="[assembly:System.Reflection.AssemblyTitleAttribute(&quot;$(ProjectName)&quot;)]"/>
+      <AssemblyAttribute Include="[assembly:System.Reflection.AssemblyDescriptionAttribute(&quot;Free UML class diagram editor&quot;)]"/>
+      <AssemblyAttribute Include="[assembly:System.Reflection.AssemblyProductAttribute(&quot;$(ProjectName)&quot;)]"/>
+      <AssemblyAttribute Include="[assembly:System.Reflection.AssemblyCopyrightAttribute(&quot;Copyright (C) 2006-2011 Balazs Tihanyi&quot;)]"/>
+      <AssemblyAttribute Include="[assembly:System.Reflection.AssemblyVersionAttribute(&quot;$(ProjectVersion).$(BuildNumber).0&quot;)]"/>
+      <AssemblyAttribute Include="[assembly:System.Reflection.AssemblyFileVersionAttribute(&quot;$(ProjectVersion).$(BuildNumber).0&quot;)]"/>
+      <AssemblyAttribute Include="[assembly:System.Reflection.AssemblyInformationalVersionAttribute(&quot;$(ProjectVersion)&quot;)]"/>
+    </ItemGroup>
+    <WriteLinesToFile File="src\CommonAssemblyInfo.cs" Overwrite="true" Lines="@(AssemblyAttribute)"/>
+  </Target>
+
+  <Target Name="DeleteCommonAssemblyInfo">
+    <Delete Files="src\CommonAssemblyInfo.cs" Condition="Exists('src\CommonAssemblyInfo.cs')"/>
+  </Target>
+</Project>
