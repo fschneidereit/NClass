@@ -11,8 +11,7 @@
     <RootNamespace>NClass.GUI</RootNamespace>
     <AssemblyName>NClass</AssemblyName>
     <StartupObject>NClass.GUI.Program</StartupObject>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>..\icons\nclass.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
